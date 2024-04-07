@@ -1,0 +1,30 @@
+@hostname = localhost
+@port = 3333
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+
+###
+GET http://{{host}}
+
+###
+POST http://{{host}}/sign-up
+Content-Type: {{contentType}}
+
+{
+  "name": "John Due",
+  "email": "jonh.due@mail.com",
+  "cpfCnpj": "98961238000188",
+  "password": "jh101010"
+}
+
+###
+POST http://{{host}}/sign-up
+Content-Type: {{contentType}}
+
+{
+  "name": "Mary Due",
+  "email": "mary.due@mail.com",
+  "cpfCnpj": "43216661040",
+  "password": "mr101010"
+
+}
