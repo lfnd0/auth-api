@@ -11,3 +11,11 @@ export const registerBodySchema = z
     password: z.string().min(6, 'Invalid password'),
   })
   .strict()
+
+export const authenticateBodySchema = z
+  .object({
+    email: z.string().email('Invalid e-mail').optional(),
+    cpfCnpj: z.string().optional(),
+    password: z.string().min(6, 'Invalid password'),
+  })
+  .strict()
