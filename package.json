@@ -2,7 +2,7 @@
   "name": "auth-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts"
   },
@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "@fastify/jwt": "8.0.0",
+    "@fastify/swagger": "8.14.0",
+    "@fastify/swagger-ui": "3.0.0",
     "@prisma/client": "5.12.1",
     "bcryptjs": "2.4.3",
     "cpf-cnpj-validator": "1.0.3",
