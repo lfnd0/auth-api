@@ -8,13 +8,14 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(uuid())
-  name          String
-  email         String    @unique
-  cpfCnpj       String    @unique
-  password_hash String
-  created_at    DateTime  @default(now())
-  updated_at    DateTime?
+  id                 String    @id @default(uuid())
+  name               String
+  email              String    @unique
+  cpfCnpj            String    @unique
+  password_hash      String
+  has_active_session Boolean   @default(false)
+  created_at         DateTime  @default(now())
+  updated_at         DateTime?
 
   @@map("users")
 }
