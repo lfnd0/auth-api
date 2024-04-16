@@ -7,6 +7,10 @@ const httpStatusCode = {
     statusCode: 201,
     description: 'Created',
   },
+  noContent: {
+    statusCode: 204,
+    description: 'No Content',
+  },
   badRequest: {
     statusCode: 400,
     description: 'Bad Request',
@@ -32,6 +36,7 @@ const httpStatusCode = {
 export const {
   ok,
   created,
+  noContent,
   badRequest,
   unauthorized,
   notFound,
