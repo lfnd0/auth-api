@@ -27,25 +27,27 @@ export class AuthenticateUseCase {
       throw new InvalidCredentialsError()
     }
 
-    const user = await this.authRepository.findUserByEmailOrCpfCnpj(
+    const hasUser = await this.authRepository.findUserByEmailOrCpfCnpj(
       email,
       cpfCnpj,
     )
 
-    if (!user) {
+    if (!hasUser) {
       throw new InvalidCredentialsError()
     }
 
-    const checkPassword = await compare(password, user.password)
+    const checkPassword = await compare(password, hasUser.password)
 
     if (!checkPassword) {
       throw new InvalidCredentialsError()
     }
 
+    await this.authRepository.updateSession(hasUser.id, true)
+
     return {
       user: {
-        id: user.id!,
-        cpfCnpj: user.cpfCnpj,
+        id: hasUser.id!,
+        cpfCnpj: hasUser.cpfCnpj,
       },
     }
   }
