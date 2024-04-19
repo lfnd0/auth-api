@@ -1,5 +1,5 @@
-export class UserAlreadyExistsError extends Error {
+export class UserNotFound extends Error {
   constructor() {
-    super('E-mail, CPF or CNPJ already exists')
+    super('User not found')
   }
 }
