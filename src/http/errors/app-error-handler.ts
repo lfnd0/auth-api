@@ -1,12 +1,16 @@
 import { FastifyError, FastifyReply, FastifyRequest } from 'fastify'
 import { ZodError } from 'zod'
 import { fromZodError } from 'zod-validation-error'
-import { InvalidCredentialsError } from '../../use-cases/auth/erros'
-import { UserAlreadyExistsError } from '../../use-cases/users/errors'
+import {
+  InvalidCredentialsError,
+  UserAlreadyExistsError,
+} from '../../use-cases/auth/erros'
+import { UserNotFound } from '../../use-cases/users/errors'
 import {
   badRequest,
   conflict,
   internalServerError,
+  notFound,
   unauthorized,
 } from '../constants/http-status-code'
 import { loggerError } from '../logs'
@@ -54,6 +58,18 @@ export function appErrorHandler(
 
   if (error instanceof UserAlreadyExistsError) {
     const { statusCode, description } = conflict
+    const { message } = error
+
+    return generateReply({
+      reply,
+      statusCode,
+      statusCodeDescription: description,
+      message,
+    })
+  }
+
+  if (error instanceof UserNotFound) {
+    const { statusCode, description } = notFound
     const { message } = error
 
     return generateReply({
