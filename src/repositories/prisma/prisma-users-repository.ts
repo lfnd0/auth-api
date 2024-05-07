@@ -75,26 +75,9 @@ export class PrismaUsersRepository implements UsersRepository {
     return null
   }
 
-  // async findUserByEmailAndCpfCnpj(
-  //   email: string,
-  //   cpfCnpj: string,
-  // ): Promise<boolean> {
-  //   const userData = await prisma.user.findFirst({
-  //     where: {
-  //       AND: [{ cpfCnpj }, { email }],
-  //     },
-  //   })
-
-  //   if (userData) {
-  //     return true
-  //   }
-
-  //   return false
-  // }
-
   async findUserByEmailOrCpfCnpj(
-    email?: string | undefined,
-    cpfCnpj?: string | undefined,
+    email?: string,
+    cpfCnpj?: string,
   ): Promise<User | null> {
     const userData = await prisma.user.findFirst({
       where: {
