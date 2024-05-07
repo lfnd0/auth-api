@@ -1,6 +1,5 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { InMemoryUsersRepository } from '../../../repositories/users/in-memory/in-memory-users-repository'
-import { AuthenticateUseCase } from '../../../use-cases/auth/authenticate'
+import { makeAuthenticateUseCase } from '../../../use-cases/auth/factories/make-authenticate-use-case'
 import { ok } from '../../constants/http-status-code'
 import { authenticateBodySchema } from '../../schemas'
 
@@ -11,8 +10,7 @@ export async function authenticate(
   const { body } = request
   const { email, cpfCnpj, password } = authenticateBodySchema.parse(body)
 
-  const usersRepositoy = new InMemoryUsersRepository()
-  const authenticateUseCase = new AuthenticateUseCase(usersRepositoy)
+  const authenticateUseCase = makeAuthenticateUseCase()
 
   const { user } = await authenticateUseCase.execute({
     email,
@@ -25,7 +23,6 @@ export async function authenticate(
     {
       sign: {
         sub: user.id,
-        expiresIn: '1m',
       },
     },
   )
