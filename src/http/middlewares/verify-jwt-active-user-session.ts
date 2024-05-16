@@ -1,5 +1,5 @@
 import { FastifyRequest } from 'fastify'
-import { DecodePayloadType } from '../../@types/decode-payload-type'
+import { IDecodePayloadType } from '../../@types/decode-payload-type'
 import { InvalidCredentialsError } from '../../use-cases/auth/erros'
 import { makeLogoutUseCase } from '../../use-cases/auth/factories/make-logout-use-case'
 import { makeSessionUseCase } from '../../use-cases/auth/factories/make-session-use-case'
@@ -17,13 +17,10 @@ export async function verifyJwtAndActiveUserSession(request: FastifyRequest) {
       throw new InvalidCredentialsError()
     }
   } catch (error) {
-    const decodePayload: DecodePayloadType = await request.jwtDecode({
-      verify: { complete: true },
-      decode: { complete: true },
-    })
+    const decodePayload: IDecodePayloadType = await request.jwtDecode()
 
     const logoutUseCase = makeLogoutUseCase()
-    await logoutUseCase.execute({ userId: decodePayload.payload.sub })
+    await logoutUseCase.execute({ userId: decodePayload.sub })
 
     throw new InvalidCredentialsError()
   }

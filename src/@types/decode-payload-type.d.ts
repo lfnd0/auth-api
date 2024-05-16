@@ -1,5 +1,5 @@
-export interface DecodePayloadType {
-  payload: {
-    sub: string
-  }
+import { DecodePayloadType } from '@fastify/jwt'
+
+export interface IDecodePayloadType extends DecodePayloadType {
+  sub: string
 }
